@@ -38,7 +38,7 @@ class Game:
     def __init__(self, screen):
         self.piece = Piece()
         self.screen = screen
-        self.placed_pieces = numpy.zeros((NUMBER_OF_TILES_WIDGHT,NUMBER_OF_TILES_HEIGHT))
+        self.placed_pieces = numpy.zeros((NUMBER_OF_TILES_HEIGHT,NUMBER_OF_TILES_WIDGHT))
         self.is_running = True
 
     def display_checkerboard(self):
@@ -68,8 +68,8 @@ class Game:
         for i in range(len(self.piece.shape)):
             for j in range(len(self.piece.shape[i])):
                 if self.piece.shape[i][j] == 1:
-                    print(self.placed_pieces)
-                    self.placed_pieces[position[0]+i,position[1]+j] = self.piece.colour
+                    print(self.placed_pieces.shape)
+                    self.placed_pieces[position[0]+i,position[1]+j] = PIECES_COLOURS.index(self.piece.colour)
         print(self.placed_pieces)
     
     def display_placed_pieces(self):
@@ -78,7 +78,7 @@ class Game:
                 if self.placed_pieces[i,j] != 0:
                     x, y = i * TILES_SIZE, j * TILES_SIZE
                     rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
-                    pygame.draw.rect(self.screen, self.placed_pieces[i,j], rect)    
+                    pygame.draw.rect(self.screen, PIECES_COLOURS[int(self.placed_pieces[i,j])], rect)    
     
     def display(self):
         self.display_checkerboard()
