@@ -37,9 +37,10 @@ fonctionnalités :
 
 grille de base ✅
 formes des pièces ✅
+couleurs des pièces ✅
 créer une pièce ✅
-afficher pièce
-descendre pièce
+afficher pièce ✅
+descendre pièce ✅
 droite/gauche (attention cadre)
 arrêter pièce
 tourner pièce
