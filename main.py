@@ -37,7 +37,16 @@ class Game:
 class Piece:
     def __init__(self):
         self.shape = random.choice(PIECES)
-        self.position = [0,0]
+        self.position = [0,0] #coin en haut à gauche de la pièce ou shape[0,0]
+        self.color = random.choice(COLORS)
+    
+    def display(self):
+        for i in range(len(self.shape)):
+            for j in range(len(self.shape[i])):
+                x, y = i * TILES_SIZE, j * TILES_SIZE
+            rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
+            pygame.draw.rect(screen, FRUIT_COLOR, rect)
+
 
 
 def main():
