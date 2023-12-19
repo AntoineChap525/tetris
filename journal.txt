@@ -61,4 +61,4 @@ formes des pièces :
 
 ##########
 Finalement, on choisit de faire "pouvoir tourner la pièce autant qu'on veut avant qu'elle descende",
-i.e. avoir 2 pas de temps plus tôt
+i.e. avoir 2 pas de temps plus tôt car si on implémente bcp de choses, ça risque d'être plus compliqué de tout changer
