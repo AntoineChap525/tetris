@@ -1,0 +1,57 @@
+
+
+dates :
+mardi 9 janvier
+mardi 16 janvier
+mardi 23 janvier
+mardi 13 février : deadline
+
+
+planning objectif (peut-être pas réalisable mais trkl) du 19/12 :
+
+grille de base
+formes des pièces
+descendre pièce
+droite/gauche (attention cadre)
+
+mardi 9 janvier
+
+arrêter pièce
+tourner pièce
+
+mardi 16 janvier
+
+mise à jour de la grille
+pouvoir tourner la pièce autant qu'on veut avant qu'elle descende
+
+mardi 23 janvier
+
+enlever une ligne
+score
+accélérer temps
+
+mardi 13 février : deadline
+
+
+fonctionnalités :
+
+grille de base ✅
+formes des pièces ✅
+créer une pièce ✅
+afficher pièce
+descendre pièce
+droite/gauche (attention cadre)
+arrêter pièce
+tourner pièce
+mise à jour de la grille
+game over
+pouvoir tourner la pièce autant qu'on veut avant qu'elle descende
+enlever une ligne
+tourner la pièce au début
+score
+donner un titre au jeu ^^
+accélérer temps
+
+
+formes des pièces :
+-> lister les différentes formes
