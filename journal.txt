@@ -56,3 +56,8 @@ accélérer temps
 
 formes des pièces :
 -> lister les différentes formes
+
+
+##########
+Finalement, on choisit de faire "pouvoir tourner la pièce autant qu'on veut avant qu'elle descende",
+i.e. avoir 2 pas de temps plus tôt
