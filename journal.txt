@@ -42,7 +42,7 @@ créer une pièce ✅
 afficher pièce ✅
 descendre pièce ✅
 droite/gauche (attention cadre) ✅
-arrêter pièce
+arrêter pièce 
 tourner pièce
 mise à jour de la grille
 game over
@@ -62,3 +62,7 @@ formes des pièces :
 ##########
 Finalement, on choisit de faire "pouvoir tourner la pièce autant qu'on veut avant qu'elle descende",
 i.e. avoir 2 pas de temps plus tôt car si on implémente bcp de choses, ça risque d'être plus compliqué de tout changer
+
+on a aussi oublié dans les fonctionnalités : créer une nouvelle pièce
+
+inversion de deux fonctionnalités : tourner et update écran
