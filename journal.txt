@@ -66,3 +66,9 @@ i.e. avoir 2 pas de temps plus tôt car si on implémente bcp de choses, ça ris
 on a aussi oublié dans les fonctionnalités : créer une nouvelle pièce
 
 inversion de deux fonctionnalités : tourner et update écran
+
+##########
+Pour enregistrer les pièces déjà déposées : on va faire un tableau représentant toutes les cases du jeu.
+En effet, si on choisit, comme ce que l'on comptait faire, de stocker les pièces déposées et leurs positions finales,
+on aura un problème lorsque des lignes seront supprimés car complètes (fonctionnalités à venir).
+De plus, il sera plus facile avec un tableau de repérer les lignes complètes.
