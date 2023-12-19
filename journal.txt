@@ -41,7 +41,7 @@ couleurs des pièces ✅
 créer une pièce ✅
 afficher pièce ✅
 descendre pièce ✅
-droite/gauche (attention cadre)
+droite/gauche (attention cadre) ✅
 arrêter pièce
 tourner pièce
 mise à jour de la grille
@@ -56,6 +56,7 @@ accélérer temps
 
 formes des pièces :
 -> lister les différentes formes
+-> lister les différentes couleurs
 
 
 ##########

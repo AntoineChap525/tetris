@@ -64,13 +64,16 @@ class Piece:
         self.horizontal_direction = 0
 
     def update(self):
+        self.update_horizontal()
+        self.position[0] += 1
+    
+    def update_horizontal(self):
         width = len(self.shape[0])
         max_width = SCREEN_WIDTH // TILES_SIZE
         new_position = self.position[1] + self.horizontal_direction
         if (new_position >= 0) and (new_position + width <= max_width):
             self.position[1] = new_position
         self.horizontal_direction = 0
-        self.position[0] += 1
 
     def display(self, screen):
         for i in range(len(self.shape)):
@@ -93,7 +96,7 @@ def main():
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:  # quit the game
+                if event.key == pygame.K_q:  
                     game.is_running = False
                 # Control
                 if event.key == pygame.K_LEFT:
@@ -101,7 +104,7 @@ def main():
                 if event.key == pygame.K_RIGHT:
                     game.piece.horizontal_direction = 1
 
-            if event.type == pygame.QUIT:  # quit the game
+            if event.type == pygame.QUIT:
                 game.is_running = False
 
         game.update()
