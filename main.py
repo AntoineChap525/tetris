@@ -13,6 +13,9 @@ TILES_COLOR = (50, 50, 50)
 NUMBER_OF_TILES_HEIGHT = SCREEN_HEIGHT // TILES_SIZE
 NUMBER_OF_TILES_WIDGHT = SCREEN_WIDTH // TILES_SIZE
 
+LINE_POSITION = 4 * TILES_SIZE
+LINE_COLOR = (230, 0, 0)
+
 PIECES = [
     [[1, 1, 1, 1]],
     [[1, 0, 0], [1, 1, 1]],
@@ -53,6 +56,13 @@ class Game:
                         j * TILES_SIZE, i * TILES_SIZE, TILES_SIZE, TILES_SIZE
                     )
                     pygame.draw.rect(self.screen, TILES_COLOR, rect)
+        pygame.draw.line(
+            self.screen,
+            LINE_COLOR,
+            [0, LINE_POSITION],
+            [SCREEN_WIDTH, LINE_POSITION],
+            2,
+        )
 
     def update(self):
         self.piece.update()
@@ -83,6 +93,9 @@ class Game:
         self.display_checkerboard()
         self.piece.display(self.screen)
         self.display_placed_pieces()
+
+    def check_game_over(self):
+        self.is_running = np.all(self.placed_pieces[3] == -1)
 
 
 class Piece:
@@ -164,9 +177,9 @@ def main():
 
             if event.type == pygame.QUIT:
                 game.is_running = False
-
         game.update()
         game.display()
+        game.check_game_over()
         pygame.display.update()
 
 

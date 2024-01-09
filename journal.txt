@@ -43,7 +43,7 @@ afficher pièce ✅
 descendre pièce ✅
 droite/gauche (attention cadre) ✅
 arrêter pièce ✅
-tourner pièce
+tourner pièce ✅
 mise à jour de la grille ✅
 game over
 pouvoir tourner la pièce autant qu'on veut avant qu'elle descende
