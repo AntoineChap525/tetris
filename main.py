@@ -4,7 +4,7 @@ import numpy as np
 
 SCREEN_COLOR = (100, 100, 100)
 SCREEN_WIDTH = 200
-SCREEN_HEIGHT = 400
+SCREEN_HEIGHT = 500
 CLOCK_FREQUENCY = 5
 
 TILES_SIZE = 20
@@ -45,6 +45,7 @@ class Game:
             (NUMBER_OF_TILES_HEIGHT, NUMBER_OF_TILES_WIDGHT), -1
         )
         self.is_running = True
+        self.score = 0
 
     def display_checkerboard(self):
         self.screen.fill(SCREEN_COLOR)
@@ -105,14 +106,22 @@ class Game:
                 self.placed_pieces = np.delete(self.placed_pieces, i, axis=0)
                 new_line = np.full((1, NUMBER_OF_TILES_WIDGHT), -1)
                 self.placed_pieces = np.vstack([new_line, self.placed_pieces])
+                self.score += 10
 
 
 class Piece:
     def __init__(self):
         self.shape = np.array(random.choice(PIECES))
-        self.position = [0, 0]  # coin en haut à gauche de la pièce ou shape[0,0]
+        self.position = [
+            0,
+            NUMBER_OF_TILES_WIDGHT // 2 - 1,
+        ]  # middle
         self.colour = random.choice(PIECES_COLOURS)
         self.horizontal_direction = 0
+
+        random_number = random.randint(0, 3)
+        for i in range(random_number + 1):
+            self.shape = np.rot90(self.shape)
 
     def update(self, placed_pieces):
         if self.horizontal_direction != 0:
@@ -153,10 +162,15 @@ class Piece:
 
     def has_superposed(self, placed_pieces):
         max_height = SCREEN_HEIGHT // TILES_SIZE
+        width = len(self.shape[0])
+        max_width = SCREEN_WIDTH // TILES_SIZE
 
+        is_beyond_borders = (self.position[1] < 0) or (
+            self.position[1] + width > max_width
+        )
         is_beyond_ground = self.position[0] + len(self.shape) > max_height
         has_superposed_placed_piece = False
-        if not is_beyond_ground:
+        if not is_beyond_ground and not is_beyond_borders:
             for i in range(len(self.shape)):
                 for j in range(len(self.shape[i])):
                     if self.shape[i, j] == 1:
@@ -169,13 +183,19 @@ class Piece:
                         ):
                             has_superposed_placed_piece = True
 
-        return is_beyond_ground or has_superposed_placed_piece
+        return is_beyond_ground or has_superposed_placed_piece or is_beyond_borders
 
     def rotate(self, placed_pieces):
         former_shape = np.copy(self.shape)
         self.shape = np.rot90(self.shape)
         if self.has_superposed(placed_pieces):
             self.shape = former_shape
+
+    def down(self, placed_pieces):
+        former_position = np.copy(self.position)
+        self.position[0] += 1
+        if self.has_superposed(placed_pieces):
+            self.position = former_position
 
     def display(self, screen):
         for i in range(len(self.shape)):
@@ -193,8 +213,10 @@ def main():
     clock = pygame.time.Clock()
 
     game = Game(screen)
+
     while game.is_running:
-        clock.tick(CLOCK_FREQUENCY)
+        pygame.display.set_caption("Tetris" + f" Score : {game.score}")
+        clock.tick(CLOCK_FREQUENCY * (game.score / 100 + 1))
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -202,12 +224,13 @@ def main():
                     game.is_running = False
                 # Control
                 if event.key == pygame.K_LEFT:
-                    game.piece.horizontal_direction = -1
+                    game.piece.horizontal_direction += -1
                 if event.key == pygame.K_RIGHT:
-                    game.piece.horizontal_direction = 1
+                    game.piece.horizontal_direction += 1
                 if event.key == pygame.K_UP:
                     game.piece.rotate(game.placed_pieces)
-
+                if event.key == pygame.K_DOWN:
+                    game.piece.down(game.placed_pieces)
             if event.type == pygame.QUIT:
                 game.is_running = False
         game.update()
