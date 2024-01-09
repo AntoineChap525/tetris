@@ -56,30 +56,7 @@ class Game:
 
     def update(self):
         self.piece.update()
-        self.check_piece_collision()
-
-    def check_piece_collision(self):
-        height = len(self.piece.shape)
-        max_height = SCREEN_HEIGHT // TILES_SIZE
-
-        has_collided_ground = (
-            self.piece.position[0] + len(self.piece.shape) >= max_height
-        )
-
-        has_collided_placed_piece = False
-        if not has_collided_ground:
-            for i in range(len(self.piece.shape)):
-                for j in range(len(self.piece.shape[i])):
-                    if self.piece.shape[i][j] == 1:
-                        if (
-                            self.placed_pieces[
-                                self.piece.position[0] + i + 1,
-                                self.piece.position[1] + j,
-                            ]
-                            != -1
-                        ):
-                            has_collided_placed_piece = True
-        if has_collided_ground or has_collided_placed_piece:
+        if self.piece.has_collided(self.placed_pieces):
             self.update_placed_pieces()
             self.piece = Piece()
 
@@ -87,7 +64,7 @@ class Game:
         position = self.piece.position
         for i in range(len(self.piece.shape)):
             for j in range(len(self.piece.shape[i])):
-                if self.piece.shape[i][j] == 1:
+                if self.piece.shape[i, j] == 1:
                     self.placed_pieces[
                         position[0] + i, position[1] + j
                     ] = PIECES_COLOURS.index(self.piece.colour)
@@ -110,7 +87,7 @@ class Game:
 
 class Piece:
     def __init__(self):
-        self.shape = random.choice(PIECES)
+        self.shape = np.array(random.choice(PIECES))
         self.position = [0, 0]  # coin en haut à gauche de la pièce ou shape[0,0]
         self.colour = random.choice(PIECES_COLOURS)
         self.horizontal_direction = 0
@@ -127,10 +104,37 @@ class Piece:
             self.position[1] = new_position
         self.horizontal_direction = 0
 
+    def has_collided(self, placed_pieces):
+        height = len(self.shape)
+        max_height = SCREEN_HEIGHT // TILES_SIZE
+
+        has_collided_ground = self.position[0] + len(self.shape) >= max_height
+
+        has_collided_placed_piece = False
+        if not has_collided_ground:
+            for i in range(len(self.shape)):
+                for j in range(len(self.shape[i])):
+                    if self.shape[i, j] == 1:
+                        if (
+                            placed_pieces[
+                                self.position[0] + i + 1,
+                                self.position[1] + j,
+                            ]
+                            != -1
+                        ):
+                            has_collided_placed_piece = True
+        return has_collided_ground or has_collided_placed_piece
+
+    def rotate(self, placed_pieces):
+        former_shape = self.shape
+        self.shape = np.rot90(self.shape)
+        if self.has_collided(placed_pieces):
+            self.shape = former_shape
+
     def display(self, screen):
         for i in range(len(self.shape)):
             for j in range(len(self.shape[i])):
-                if self.shape[i][j] == 1:
+                if self.shape[i, j] == 1:
                     x = (self.position[0] + i) * TILES_SIZE
                     y = (self.position[1] + j) * TILES_SIZE
                     rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
@@ -155,6 +159,8 @@ def main():
                     game.piece.horizontal_direction = -1
                 if event.key == pygame.K_RIGHT:
                     game.piece.horizontal_direction = 1
+                if event.key == pygame.K_UP:
+                    game.piece.rotate(game.placed_pieces)
 
             if event.type == pygame.QUIT:
                 game.is_running = False
