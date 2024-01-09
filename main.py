@@ -69,6 +69,7 @@ class Game:
         if self.piece.has_collided(self.placed_pieces):
             self.update_placed_pieces()
             self.piece = Piece()
+        self.check_full_line()
 
     def update_placed_pieces(self):
         position = self.piece.position
@@ -97,6 +98,13 @@ class Game:
     def check_game_over(self):
         self.is_running = np.all(self.placed_pieces[3] == -1)
 
+    def check_full_line(self):
+        for i in range(len(self.placed_pieces)):
+            if np.all(self.placed_pieces[i] != -1):
+                self.placed_pieces = np.delete(self.placed_pieces, i, axis=0)
+                new_line = np.full((1, NUMBER_OF_TILES_WIDGHT), -1)
+                self.placed_pieces = np.vstack([new_line, self.placed_pieces])
+
 
 class Piece:
     def __init__(self):
@@ -114,16 +122,12 @@ class Piece:
     def update_horizontal(self, placed_pieces):
         width = len(self.shape[0])
         max_width = SCREEN_WIDTH // TILES_SIZE
-        print(self.position)
         former_position = np.copy(self.position)
-        print(former_position)
         new_position = self.position[1] + self.horizontal_direction
         if (new_position >= 0) and (new_position + width <= max_width):
             self.position[1] = new_position
-        print(former_position)
         if self.has_superposed(placed_pieces):
             self.position = former_position
-        print(self.position)
         self.horizontal_direction = 0
 
     def has_collided(self, placed_pieces):
