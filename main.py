@@ -61,7 +61,25 @@ class Game:
     def check_piece_collision(self):
         height = len(self.piece.shape)
         max_height = SCREEN_HEIGHT // TILES_SIZE
-        if self.piece.position[0] + len(self.piece.shape) >= max_height:
+
+        has_collided_ground = (
+            self.piece.position[0] + len(self.piece.shape) >= max_height
+        )
+
+        has_collided_placed_piece = False
+        if not has_collided_ground:
+            for i in range(len(self.piece.shape)):
+                for j in range(len(self.piece.shape[i])):
+                    if self.piece.shape[i][j] == 1:
+                        if (
+                            self.placed_pieces[
+                                self.piece.position[0] + i + 1,
+                                self.piece.position[1] + j,
+                            ]
+                            != -1
+                        ):
+                            has_collided_placed_piece = True
+        if has_collided_ground or has_collided_placed_piece:
             self.update_placed_pieces()
             self.piece = Piece()
 
@@ -70,11 +88,9 @@ class Game:
         for i in range(len(self.piece.shape)):
             for j in range(len(self.piece.shape[i])):
                 if self.piece.shape[i][j] == 1:
-                    print(self.placed_pieces.shape)
                     self.placed_pieces[
                         position[0] + i, position[1] + j
                     ] = PIECES_COLOURS.index(self.piece.colour)
-        print(self.placed_pieces)
 
     def display_placed_pieces(self):
         for i in range(len(self.placed_pieces)):
