@@ -72,3 +72,15 @@ Pour enregistrer les pièces déjà déposées : on va faire un tableau représe
 En effet, si on choisit, comme ce que l'on comptait faire, de stocker les pièces déposées et leurs positions finales,
 on aura un problème lorsque des lignes seront supprimés car complètes (fonctionnalités à venir).
 De plus, il sera plus facile avec un tableau de repérer les lignes complètes.
+
+
+############ 09/01/2024 ##########
+Bug certaines pièces disparaissent : lié à l'index de la couleur rentrée dans le tableau
+(si c'est 0, c'est comme s'il n'y avait pas de pièce)
+=> Donc on met -1 quand c'est vide et pas 0
+
+#######
+Nouvelle idée de fonctionnalités : quand une ligne est enlevée, tout ne dessend pas d'une seule ligne,
+mais si un bloc peut dessendre de plus, alors on le dessend au max.
+
+#######

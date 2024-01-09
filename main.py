@@ -1,6 +1,6 @@
 import pygame
 import random
-import numpy
+import numpy as np
 
 SCREEN_COLOR = (100, 100, 100)
 SCREEN_WIDTH = 200
@@ -24,7 +24,7 @@ PIECES = [
 ]
 
 PIECES_COLOURS = [
-    (255, 192, 203), # couleur 0
+    (255, 192, 203),  # couleur 0
     (173, 216, 230),  # couleur 1
     (255, 255, 153),  # etc..
     (144, 238, 144),  # Vert clair
@@ -38,7 +38,9 @@ class Game:
     def __init__(self, screen):
         self.piece = Piece()
         self.screen = screen
-        self.placed_pieces = numpy.zeros((NUMBER_OF_TILES_HEIGHT,NUMBER_OF_TILES_WIDGHT))
+        self.placed_pieces = np.full(
+            (NUMBER_OF_TILES_HEIGHT, NUMBER_OF_TILES_WIDGHT), -1
+        )
         self.is_running = True
 
     def display_checkerboard(self):
@@ -55,11 +57,11 @@ class Game:
     def update(self):
         self.piece.update()
         self.check_piece_collision()
-    
+
     def check_piece_collision(self):
         height = len(self.piece.shape)
         max_height = SCREEN_HEIGHT // TILES_SIZE
-        if self.piece.position[0]+ len(self.piece.shape) >= max_height:
+        if self.piece.position[0] + len(self.piece.shape) >= max_height:
             self.update_placed_pieces()
             self.piece = Piece()
 
@@ -69,17 +71,21 @@ class Game:
             for j in range(len(self.piece.shape[i])):
                 if self.piece.shape[i][j] == 1:
                     print(self.placed_pieces.shape)
-                    self.placed_pieces[position[0]+i,position[1]+j] = PIECES_COLOURS.index(self.piece.colour)
+                    self.placed_pieces[
+                        position[0] + i, position[1] + j
+                    ] = PIECES_COLOURS.index(self.piece.colour)
         print(self.placed_pieces)
-    
+
     def display_placed_pieces(self):
         for i in range(len(self.placed_pieces)):
             for j in range(len(self.placed_pieces[0])):
-                if self.placed_pieces[i,j] != 0:
+                if self.placed_pieces[i, j] != -1:
                     x, y = i * TILES_SIZE, j * TILES_SIZE
                     rect = pygame.Rect(y, x, TILES_SIZE, TILES_SIZE)
-                    pygame.draw.rect(self.screen, PIECES_COLOURS[int(self.placed_pieces[i,j])], rect)    
-    
+                    pygame.draw.rect(
+                        self.screen, PIECES_COLOURS[int(self.placed_pieces[i, j])], rect
+                    )
+
     def display(self):
         self.display_checkerboard()
         self.piece.display(self.screen)
@@ -96,7 +102,7 @@ class Piece:
     def update(self):
         self.update_horizontal()
         self.position[0] += 1
-    
+
     def update_horizontal(self):
         width = len(self.shape[0])
         max_width = SCREEN_WIDTH // TILES_SIZE
@@ -126,7 +132,7 @@ def main():
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:  
+                if event.key == pygame.K_q:
                     game.is_running = False
                 # Control
                 if event.key == pygame.K_LEFT:
@@ -140,7 +146,6 @@ def main():
         game.update()
         game.display()
         pygame.display.update()
-        
 
 
 main()
