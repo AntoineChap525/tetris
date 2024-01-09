@@ -96,7 +96,8 @@ class Game:
         self.display_placed_pieces()
 
     def check_game_over(self):
-        self.is_running = np.all(self.placed_pieces[3] == -1)
+        if not np.all(self.placed_pieces[3] == -1):
+            self.is_running = False
 
     def check_full_line(self):
         for i in range(len(self.placed_pieces)):
