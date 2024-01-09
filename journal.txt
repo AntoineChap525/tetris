@@ -45,7 +45,7 @@ droite/gauche (attention cadre) ✅
 arrêter pièce ✅
 tourner pièce ✅
 mise à jour de la grille ✅
-game over
+game over ✅
 pouvoir tourner la pièce autant qu'on veut avant qu'elle descende
 enlever une ligne
 tourner la pièce au début

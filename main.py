@@ -65,7 +65,7 @@ class Game:
         )
 
     def update(self):
-        self.piece.update()
+        self.piece.update(self.placed_pieces)
         if self.piece.has_collided(self.placed_pieces):
             self.update_placed_pieces()
             self.piece = Piece()
@@ -105,20 +105,28 @@ class Piece:
         self.colour = random.choice(PIECES_COLOURS)
         self.horizontal_direction = 0
 
-    def update(self):
-        self.update_horizontal()
-        self.position[0] += 1
+    def update(self, placed_pieces):
+        if self.horizontal_direction != 0:
+            self.update_horizontal(placed_pieces)
+        if not self.has_collided(placed_pieces):
+            self.position[0] += 1
 
-    def update_horizontal(self):
+    def update_horizontal(self, placed_pieces):
         width = len(self.shape[0])
         max_width = SCREEN_WIDTH // TILES_SIZE
+        print(self.position)
+        former_position = np.copy(self.position)
+        print(former_position)
         new_position = self.position[1] + self.horizontal_direction
         if (new_position >= 0) and (new_position + width <= max_width):
             self.position[1] = new_position
+        print(former_position)
+        if self.has_superposed(placed_pieces):
+            self.position = former_position
+        print(self.position)
         self.horizontal_direction = 0
 
     def has_collided(self, placed_pieces):
-        height = len(self.shape)
         max_height = SCREEN_HEIGHT // TILES_SIZE
 
         has_collided_ground = self.position[0] + len(self.shape) >= max_height
@@ -138,10 +146,30 @@ class Piece:
                             has_collided_placed_piece = True
         return has_collided_ground or has_collided_placed_piece
 
+    def has_superposed(self, placed_pieces):
+        max_height = SCREEN_HEIGHT // TILES_SIZE
+
+        is_beyond_ground = self.position[0] + len(self.shape) > max_height
+        has_superposed_placed_piece = False
+        if not is_beyond_ground:
+            for i in range(len(self.shape)):
+                for j in range(len(self.shape[i])):
+                    if self.shape[i, j] == 1:
+                        if (
+                            placed_pieces[
+                                self.position[0] + i,
+                                self.position[1] + j,
+                            ]
+                            != -1
+                        ):
+                            has_superposed_placed_piece = True
+
+        return is_beyond_ground or has_superposed_placed_piece
+
     def rotate(self, placed_pieces):
-        former_shape = self.shape
+        former_shape = np.copy(self.shape)
         self.shape = np.rot90(self.shape)
-        if self.has_collided(placed_pieces):
+        if self.has_superposed(placed_pieces):
             self.shape = former_shape
 
     def display(self, screen):
