@@ -87,3 +87,9 @@ mais si un bloc peut dessendre de plus, alors on le dessend au max.
 
 Problème quand on rotate une pièce, elle peut remplacer certains blocs déjà placés
 => verifier lorsque l'on rotate une piece qu'elle ne collise rien.
+
+######
+Problème quand on décale une pièce : peut remplacer certains blocs déjà placés
+=> Vérifier lorsqu'on déplace une pièce qu'elle ne collise rien
+
+######
