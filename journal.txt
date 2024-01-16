@@ -1,39 +1,39 @@
+JOURNAL DE BORD 
 
-
-dates :
+Dates :
 mardi 9 janvier
 mardi 16 janvier
 mardi 23 janvier
 mardi 13 février : deadline
 
 
-planning objectif (peut-être pas réalisable mais trkl) du 19/12 :
+####### 19/12/23 #########
 
-grille de base
-formes des pièces
-descendre pièce
-droite/gauche (attention cadre)
+########## Planning objectif (peut-être pas réalisable, mais pour se donner une idée) :
 
-mardi 9 janvier
+Mardi 19 décembre
+- grille de base
+- formes des pièces
+- descendre pièce
+- droite/gauche (attention cadre)
 
-arrêter pièce
-tourner pièce
+Mardi 9 janvier
+- arrêter pièce
+- tourner pièce
 
-mardi 16 janvier
+Mardi 16 janvier
+- mise à jour de la grille
+- pouvoir tourner la pièce autant qu'on veut avant qu'elle descende
 
-mise à jour de la grille
-pouvoir tourner la pièce autant qu'on veut avant qu'elle descende
+Mardi 23 janvier
+- enlever une ligne
+- score
+- accélérer temps
 
-mardi 23 janvier
-
-enlever une ligne
-score
-accélérer temps
-
-mardi 13 février : deadline
+Mardi 13 février : deadline
 
 
-fonctionnalités :
+########## Décomposition en fonctionnalités :
 
 grille de base ✅
 formes des pièces ✅
@@ -54,25 +54,26 @@ donner un titre au jeu ^^ ✅
 accélérer temps ✅
 mettre de la mousique
 
-
-formes des pièces :
+########## Détail pour forme des pièces :
 -> lister les différentes formes
 -> lister les différentes couleurs
 
 
-##########
+########## Update de la liste de fonctionnalités
 Finalement, on choisit de faire "pouvoir tourner la pièce autant qu'on veut avant qu'elle descende",
 i.e. avoir 2 pas de temps plus tôt car si on implémente bcp de choses, ça risque d'être plus compliqué de tout changer
 
-on a aussi oublié dans les fonctionnalités : créer une nouvelle pièce
+On a aussi oublié dans les fonctionnalités : créer une nouvelle pièce
 
-inversion de deux fonctionnalités : tourner et update écran
+Inversion de deux fonctionnalités : tourner et update écran
 
-##########
+########## Comment enregistrera-t-on les pièces ?
 Pour enregistrer les pièces déjà déposées : on va faire un tableau représentant toutes les cases du jeu.
 En effet, si on choisit, comme ce que l'on comptait faire, de stocker les pièces déposées et leurs positions finales,
 on aura un problème lorsque des lignes seront supprimés car complètes (fonctionnalités à venir).
 De plus, il sera plus facile avec un tableau de repérer les lignes complètes.
+
+
 
 
 ############ 09/01/2024 ##########
@@ -80,31 +81,33 @@ Bug certaines pièces disparaissent : lié à l'index de la couleur rentrée dan
 (si c'est 0, c'est comme s'il n'y avait pas de pièce)
 => Donc on met -1 quand c'est vide et pas 0
 
-#######
-Nouvelle idée de fonctionnalités : quand une ligne est enlevée, tout ne dessend pas d'une seule ligne,
-mais si un bloc peut dessendre de plus, alors on le dessend au max.
+####### Nouvelle idée de fonctionnalités : 
+Quand une ligne est enlevée, tout ne descend pas d'une seule ligne, 
+mais si un bloc peut descendre de plus, alors on le descend au max.
 
-#######
+####### Problème 
+Quand on fait tourner une pièce, elle peut remplacer certains blocs déjà placés
+=> vérifier lorsque l'on rotate une piece qu'elle ne collise rien.
 
-Problème quand on rotate une pièce, elle peut remplacer certains blocs déjà placés
-=> verifier lorsque l'on rotate une piece qu'elle ne collise rien.
-
-######
-Problème quand on décale une pièce : peut remplacer certains blocs déjà placés
+###### Problème
+Quand on décale une pièce : peut remplacer certains blocs déjà placés
 => Vérifier lorsqu'on déplace une pièce qu'elle ne collise rien
 
-######
+###### Idée 💡
+Ajouter la musique de tetris en fond
+Accélérer la descente avec la flèche du bas
 
-idée 💡
-ajouter la musique de tetris en fond
-accélérer la descente avec la flèche du bas
+###### Update fonctionnalités 
+Les deux idées précédentes ont été réalisées.
 
 
-attention glitch
 
 
 ####### le 16 janvier 2023 ######
+
+########## Nouvelles idées de fonctionnalités
 Nous avons décidé d'ajouter une fonction pause.
 Avec un joli logo.
+
 On décide ensuite d'avoir la possibilité d'enregistrer son score avec un pseudo
 Il faudrait ajouter une fonctionnalité meilleurs score : utiliser un fichier csv.
