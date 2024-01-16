@@ -36,6 +36,17 @@ PIECES_COLOURS = [
     (255, 165, 79),
 ]
 
+# Init pause image
+IMAGE_SCALE = 15
+pause_image = pygame.image.load("pause.png")
+new_size = (
+    pause_image.get_width() // IMAGE_SCALE,
+    pause_image.get_height() // IMAGE_SCALE,
+)
+pause_image = pygame.transform.scale(pause_image, new_size)
+rect_image = pause_image.get_rect()
+rect_image.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+
 
 class Game:
     def __init__(self, screen):
@@ -111,6 +122,7 @@ class Game:
     def pause(self):
         is_paused = True
         self.screen.fill(random.choice(PIECES_COLOURS))
+        self.screen.blit(pause_image, rect_image)
         pygame.display.update()
         while is_paused:
             for event in pygame.event.get():

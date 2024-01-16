@@ -107,3 +107,4 @@ attention glitch
 Nous avons décidé d'ajouter une fonction pause.
 Avec un joli logo.
 On décide ensuite d'avoir la possibilité d'enregistrer son score avec un pseudo
+Il faudrait ajouter une fonctionnalité meilleurs score : utiliser un fichier csv.
