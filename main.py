@@ -1,6 +1,8 @@
 import pygame
 import random
 import numpy as np
+import pandas as pd
+from username import get_username
 
 SCREEN_COLOR = (100, 100, 100)
 SCREEN_WIDTH = 200
@@ -109,7 +111,16 @@ class Game:
 
     def check_game_over(self):
         if not np.all(self.placed_pieces[3] == -1):
-            self.is_running = False
+            self.game_over()
+
+    def game_over(self):
+        df = pd.read_csv("score.csv")
+        username = get_username()
+        print(username)
+        new_line = pd.DataFrame([[username, self.score]], columns=["username", "score"])
+        df = pd.concat([df, new_line], ignore_index=True)
+        df.to_csv("score.csv", index=False)
+        self.is_running = False
 
     def check_full_line(self):
         for i in range(len(self.placed_pieces)):
