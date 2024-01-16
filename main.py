@@ -108,6 +108,22 @@ class Game:
                 self.placed_pieces = np.vstack([new_line, self.placed_pieces])
                 self.score += 10
 
+    def pause(self):
+        is_paused = True
+        self.screen.fill(random.choice(PIECES_COLOURS))
+        pygame.display.update()
+        while is_paused:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        is_paused = False
+                    if event.key == pygame.K_q:
+                        is_paused = False
+                        self.is_running = False
+                if event.type == pygame.QUIT:
+                    is_paused = False
+                    self.is_running = False
+
 
 class Piece:
     def __init__(self):
@@ -231,6 +247,8 @@ def main():
                     game.piece.rotate(game.placed_pieces)
                 if event.key == pygame.K_DOWN:
                     game.piece.down(game.placed_pieces)
+                if event.key == pygame.K_SPACE:
+                    game.pause()
             if event.type == pygame.QUIT:
                 game.is_running = False
         game.update()
