@@ -132,7 +132,14 @@ class Game:
             y += 40
         pygame.display.set_caption("Highscores")
         pygame.display.flip()
-        pygame.time.wait(10000)
+        a = 1
+        while a:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:
+                        a = 0
+                if event.type == pygame.QUIT:
+                    a = 0
 
     def check_full_line(self):
         for i in range(len(self.placed_pieces)):
