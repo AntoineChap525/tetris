@@ -101,3 +101,10 @@ accélérer la descente avec la flèche du bas
 
 
 attetnion gltich
+
+########
+16/01/2024
+Ajout fonctionnalité pause
+
+##########
+Il faudrait ajouter une fonctionnalité meilleurs score : utiliser un fichier csv
