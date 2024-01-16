@@ -114,13 +114,25 @@ class Game:
             self.game_over()
 
     def game_over(self):
+        self.is_running = False
+
         df = pd.read_csv("score.csv")
         username = get_username()
-        print(username)
         new_line = pd.DataFrame([[username, self.score]], columns=["username", "score"])
         df = pd.concat([df, new_line], ignore_index=True)
         df.to_csv("score.csv", index=False)
-        self.is_running = False
+
+        self.screen.fill(SCREEN_COLOR)
+        y = 50
+        font = pygame.font.Font(None, 36)
+        for index, row in df.nlargest(3, "score").iterrows():
+            text = f"{row['username']}: {row['score']}"
+            score_text = font.render(text, True, (0, 0, 0))
+            self.screen.blit(score_text, (50, y))
+            y += 40
+        pygame.display.set_caption("Highscores")
+        pygame.display.flip()
+        pygame.time.wait(10000)
 
     def check_full_line(self):
         for i in range(len(self.placed_pieces)):
