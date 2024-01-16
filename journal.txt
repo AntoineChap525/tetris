@@ -100,4 +100,10 @@ ajouter la musique de tetris en fond
 accélérer la descente avec la flèche du bas
 
 
-attetnion gltich
+attention glitch
+
+
+####### le 16 janvier 2023 ######
+Nous avons décidé d'ajouter une fonction pause.
+Avec un joli logo.
+On décide ensuite d'avoir la possibilité d'enregistrer son score avec un pseudo
