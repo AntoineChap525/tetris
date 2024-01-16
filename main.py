@@ -225,10 +225,18 @@ class Piece:
 
 def main():
     pygame.init()
+    pygame.mixer.init()
+    chemin_fichier_audio = "game-tetris-original.mp3"
+    pygame.mixer.music.load(chemin_fichier_audio)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
 
+    pygame.mixer.music.set_endevent(
+        pygame.USEREVENT
+    )  # define event for end of the music
+
     game = Game(screen)
+    pygame.mixer.music.play()
 
     while game.is_running:
         pygame.display.set_caption("Tetris" + f" Score : {game.score}")
@@ -251,6 +259,9 @@ def main():
                     game.pause()
             if event.type == pygame.QUIT:
                 game.is_running = False
+            if event.type == pygame.USEREVENT:
+                # if end of the music, continue
+                pygame.mixer.music.play()
         game.update()
         game.display()
         game.check_game_over()
