@@ -122,6 +122,8 @@ class Game:
         df = pd.concat([df, new_line], ignore_index=True)
         df.to_csv("score.csv", index=False)
 
+        self.screen = pygame.display.set_mode((400, 300))
+        # best scores ever
         self.screen.fill(SCREEN_COLOR)
         y = 50
         font = pygame.font.Font(None, 36)
@@ -130,9 +132,23 @@ class Game:
             score_text = font.render(text, True, (0, 0, 0))
             self.screen.blit(score_text, (50, y))
             y += 40
+        y += 40
+        # personal best score
+        personal_best_score = df.loc[df["username"] == username, "score"].max()
+        text = f"your best score: {personal_best_score}"
+        score_text = font.render(text, True, (0, 0, 0))
+        self.screen.blit(score_text, (50, y))
+
         pygame.display.set_caption("Highscores")
         pygame.display.flip()
-        pygame.time.wait(10000)
+        a = 1
+        while a:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:
+                        a = 0
+                if event.type == pygame.QUIT:
+                    a = 0
 
     def check_full_line(self):
         for i in range(len(self.placed_pieces)):
