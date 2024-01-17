@@ -1,13 +1,14 @@
 username,score
-essai,0
-Antoine,50
-<<<<<<< HEAD
-Blini,0
-=======
-antoine,80
-Essai,0
-test,0
-joe,30
-bob,0
-toine,120
->>>>>>> refs/remotes/origin/main
+essai,0.0
+Antoine,50.0
+<<<<<<< HEAD,
+Blini,0.0
+=======,
+antoine,80.0
+Essai,0.0
+test,0.0
+joe,30.0
+bob,0.0
+toine,120.0
+>>>>>>> refs/remotes/origin/main,
+Blini,0.0
