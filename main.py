@@ -89,7 +89,7 @@ class Game:
                         a = 0
                 if event.type == pygame.QUIT:
                     self.is_running = False
-                    a=0
+                    a = 0
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     def display_checkerboard(self):
@@ -171,7 +171,7 @@ class Game:
         score_text = font.render(text, True, (0, 0, 0))
         self.screen.blit(score_text, (50, y))
         y += 40
-        #replay
+        # replay
         text = font.render("Pour rejouer, appuyer sur espace :)", True, (0, 0, 0))
         self.screen.blit(text, (50, y))
         pygame.display.set_caption("Highscores")
