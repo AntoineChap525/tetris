@@ -38,6 +38,17 @@ PIECES_COLOURS = [
     (255, 165, 79),
 ]
 
+# Welcome text
+welcome_text = [
+    "Bienvenue sur Tetris by Toine&Blini©",
+    "Pour bouger une pièce horizontalement, utiliser les touches fléchées de votre clavier",
+    "Pour accélérer la descente d’une pièce, utiliser la flèche du bas",
+    "Pour faire tourner une pièce dans le sens horaire (resp. anti-horaire), appuyer sur  la touche d (resp. q).",
+    "Pour faire pause/play, appuyer sur la touche espace.",
+    "Pour encore plus de fun, mettez le son",
+    "Pour commencer, appuyer sur espace",
+]
+
 # Init pause image
 IMAGE_SCALE = 15
 pause_image = pygame.image.load("pause.png")
@@ -59,6 +70,24 @@ class Game:
         )
         self.is_running = True
         self.score = 0
+
+    def welcome(self):
+        self.screen = pygame.display.set_mode((900, 700))
+        font = pygame.font.Font(None, 24)
+        self.screen.fill(PIECES_COLOURS[0])
+        y = 20
+        for line in welcome_text:
+            text = font.render(line, True, (0, 0, 0))
+            self.screen.blit(text, (50, y))
+            y += 30
+        pygame.display.flip()
+        a = True
+        while a:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        a = 0
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     def display_checkerboard(self):
         self.screen.fill(SCREEN_COLOR)
@@ -144,9 +173,6 @@ class Game:
         a = 1
         while a:
             for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_q:
-                        a = 0
                 if event.type == pygame.QUIT:
                     a = 0
 
@@ -168,9 +194,6 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         is_paused = False
-                    if event.key == pygame.K_q:
-                        is_paused = False
-                        self.is_running = False
                 if event.type == pygame.QUIT:
                     is_paused = False
                     self.is_running = False
@@ -252,9 +275,15 @@ class Piece:
 
         return is_beyond_ground or has_superposed_placed_piece or is_beyond_borders
 
-    def rotate(self, placed_pieces):
+    def rotate_trigo(self, placed_pieces):
         former_shape = np.copy(self.shape)
         self.shape = np.rot90(self.shape)
+        if self.has_superposed(placed_pieces):
+            self.shape = former_shape
+
+    def rotate_clockwise(self, placed_pieces):
+        former_shape = np.copy(self.shape)
+        self.shape = np.rot90(self.shape, k=-1)
         if self.has_superposed(placed_pieces):
             self.shape = former_shape
 
@@ -282,12 +311,15 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
 
+    game = Game(screen)
+    pygame.mixer.music.play()
+
+    # Welcome
+    game.welcome()
+
     pygame.mixer.music.set_endevent(
         pygame.USEREVENT
     )  # define event for end of the music
-
-    game = Game(screen)
-    pygame.mixer.music.play()
 
     while game.is_running:
         pygame.display.set_caption("Tetris" + f" Score : {game.score}")
@@ -295,15 +327,15 @@ def main():
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    game.is_running = False
                 # Control
                 if event.key == pygame.K_LEFT:
                     game.piece.horizontal_direction += -1
                 if event.key == pygame.K_RIGHT:
                     game.piece.horizontal_direction += 1
-                if event.key == pygame.K_UP:
-                    game.piece.rotate(game.placed_pieces)
+                if event.key == pygame.K_q:
+                    game.piece.rotate_trigo(game.placed_pieces)
+                if event.key == pygame.K_d:
+                    game.piece.rotate_clockwise(game.placed_pieces)
                 if event.key == pygame.K_DOWN:
                     game.piece.down(game.placed_pieces)
                 if event.key == pygame.K_SPACE:

@@ -103,7 +103,7 @@ Les deux idées précédentes ont été réalisées.
 
 
 
-####### le 16 janvier 2023 ######
+####### le 16 janvier 2024 ######
 
 ########## Nouvelles idées de fonctionnalités
 Nous avons décidé d'ajouter une fonction pause.
@@ -112,3 +112,10 @@ Avec un joli logo.
 On décide ensuite d'avoir la possibilité d'enregistrer son score avec un pseudo
 Il faudrait ajouter une fonctionnalité meilleurs score : utiliser un fichier csv.
 => ok fonctionne. Puis affichage meilleurs scores.
+
+
+####### le 23 janvier 2024 ######
+On choisit de pouvoir choisir le sens de rotation. On utilisera les touches q et d.
+On ne pourra donc plus quitter le jeu avec la touche q.
+
+On va faire une page de garde, avec les quelques règles.
