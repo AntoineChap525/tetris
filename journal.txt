@@ -119,5 +119,13 @@ On décide ensuite d'afficher après avoir perdu le score des meilleurs joueurs 
 ####### le 23 janvier 2024 ######
 On choisit de pouvoir choisir le sens de rotation. On utilisera les touches q et d.
 On ne pourra donc plus quitter le jeu avec la touche q.
+=> Done
 
 On va faire une page de garde, avec les quelques règles.
+=> Done
+
+Attention : pouvoir quitter avec la croix lors de la page welcome
+=> Done
+
+Rajouter la fonctionnatlité de pouvoir rejouer après avoir perdu.
+=> Done
