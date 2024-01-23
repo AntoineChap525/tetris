@@ -41,12 +41,12 @@ PIECES_COLOURS = [
 # Welcome text
 welcome_text = [
     "Bienvenue sur Tetris by Toine&Blini©",
-    "Pour bouger une pièce horizontalement, utiliser les touches fléchées de votre clavier",
+    "Pour bouger une pièce horizontalement, utiliser les touches fléchées de votre clavier <- ->",
     "Pour accélérer la descente d’une pièce, utiliser la flèche du bas",
     "Pour faire tourner une pièce dans le sens horaire (resp. anti-horaire), appuyer sur  la touche d (resp. q).",
     "Pour faire pause/play, appuyer sur la touche espace.",
-    "Pour encore plus de fun, mettez le son",
-    "Pour commencer, appuyer sur espace",
+    "Pour encore plus de fun, mettez le son XD",
+    "Pour commencer, appuyer sur espace :)",
 ]
 
 # Init pause image
@@ -72,9 +72,9 @@ class Game:
         self.score = 0
 
     def welcome(self):
-        self.screen = pygame.display.set_mode((900, 700))
+        self.screen = pygame.display.set_mode((900, 300))
         font = pygame.font.Font(None, 24)
-        self.screen.fill(PIECES_COLOURS[0])
+        self.screen.fill(PIECES_COLOURS[5])
         y = 20
         for line in welcome_text:
             text = font.render(line, True, (0, 0, 0))
@@ -154,12 +154,12 @@ class Game:
         df = pd.concat([df, new_line], ignore_index=True)
         df.to_csv("score.csv", index=False)
 
-        self.screen = pygame.display.set_mode((400, 300))
+        self.screen = pygame.display.set_mode((600, 500))
         # best scores ever
-        self.screen.fill(SCREEN_COLOR)
+        self.screen.fill(PIECES_COLOURS[1])
         y = 50
         font = pygame.font.Font(None, 36)
-        for index, row in df.nlargest(3, "score").iterrows():
+        for index, row in df.nlargest(5, "score").iterrows():
             text = f"{row['username']}: {row['score']}"
             score_text = font.render(text, True, (0, 0, 0))
             self.screen.blit(score_text, (50, y))
@@ -170,7 +170,10 @@ class Game:
         text = f"your best score: {personal_best_score}"
         score_text = font.render(text, True, (0, 0, 0))
         self.screen.blit(score_text, (50, y))
-
+        y += 40
+        #replay
+        text = font.render("Pour rejouer, appuyer sur espace :)", True, (0, 0, 0))
+        self.screen.blit(text, (50, y))
         pygame.display.set_caption("Highscores")
         pygame.display.flip()
         a = 1
@@ -295,7 +298,7 @@ class Piece:
 
     def down(self, placed_pieces):
         former_position = np.copy(self.position)
-        self.position[0] += 1
+        self.position[0] += 2
         if self.has_superposed(placed_pieces):
             self.position = former_position
 
