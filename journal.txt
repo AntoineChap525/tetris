@@ -117,6 +117,7 @@ On décide ensuite d'afficher après avoir perdu le score des meilleurs joueurs 
 
 
 ####### le 23 janvier 2024 ######
+Suite au retour d'un ami sur le jeu, quelques améliorations à faire...
 On choisit de pouvoir choisir le sens de rotation. On utilisera les touches q et d.
 On ne pourra donc plus quitter le jeu avec la touche q.
 => Done
