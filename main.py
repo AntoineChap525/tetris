@@ -148,6 +148,9 @@ class Game:
     def game_over(self):
         self.is_running = False
         pygame.mixer.music.pause()
+        chemin_fichier_audio = "game-over.mp3"
+        pygame.mixer.music.load(chemin_fichier_audio)
+        pygame.mixer.music.play()
 
         df = pd.read_csv("score.csv")
         username = get_username()
