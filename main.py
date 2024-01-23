@@ -87,6 +87,9 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         a = 0
+                if event.type == pygame.QUIT:
+                    self.is_running = False
+                    a=0
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     def display_checkerboard(self):
@@ -175,6 +178,9 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     a = 0
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        main()
 
     def check_full_line(self):
         for i in range(len(self.placed_pieces)):

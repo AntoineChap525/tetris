@@ -121,3 +121,5 @@ On choisit de pouvoir choisir le sens de rotation. On utilisera les touches q et
 On ne pourra donc plus quitter le jeu avec la touche q.
 
 On va faire une page de garde, avec les quelques règles.
+
+Rajouter la fonctionnatlité de pouvoir rejouer après avoir perdu.
