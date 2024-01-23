@@ -129,3 +129,6 @@ Attention : pouvoir quitter avec la croix lors de la page welcome
 
 Rajouter la fonctionnatlité de pouvoir rejouer après avoir perdu.
 => Done
+
+Accélerer la descente forcée
+Changer couleurs page score, mettre plus de meilleurs scores
