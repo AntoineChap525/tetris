@@ -147,6 +147,7 @@ class Game:
 
     def game_over(self):
         self.is_running = False
+        pygame.mixer.music.pause()
 
         df = pd.read_csv("score.csv")
         username = get_username()
